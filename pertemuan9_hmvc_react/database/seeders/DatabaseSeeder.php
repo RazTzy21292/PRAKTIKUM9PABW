@@ -1,0 +1,31 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Modules\Buku\Database\Seeders\BukuSeeder;
+
+class DatabaseSeeder extends Seeder
+{
+    use WithoutModelEvents;
+
+    public function run(): void
+    {
+        // UserFactory otomatis membuat personal team untuk setiap user
+        User::factory()->admin()->create([
+            'name' => 'Petugas Perpustakaan',
+            'email' => 'admin@example.com',
+            'password' => 'password',
+        ]);
+
+        User::factory()->create([
+            'name' => 'Anggota Perpustakaan',
+            'email' => 'user@example.com',
+            'password' => 'password',
+        ]);
+
+        $this->call(BukuSeeder::class);
+    }
+}
